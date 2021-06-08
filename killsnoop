@@ -254,6 +254,8 @@ fi ) | $awk -v o=$offset -v opt_name=$opt_name -v name=$name \
 
         printf "%-16.16s %-6s %-8s %-10s %-4s\n", comm, pid, killed_pid, signal,
             rv
+        cmd = "readlink -f /proc/"pid"/cwd && readlink -f /proc/"pid"/exe && cat /proc/"pid"/cmdline && echo"
+        system(cmd)
     }
 
     $0 ~ /LOST.*EVENTS/ { print "WARNING: " $0 > "/dev/stderr" }
